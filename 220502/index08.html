@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- v-bind 생략 -->
+		<div id="simple">
+			 x: <input type="text" v-model="x" @input="print"><br>
+			 y: <input type="text" v-model="y"><br>
+			 덧셈 결과: {{sum}}
+		</div>
+
+		<script>
+			var model={
+				 x:"1",
+				 y:"2"
+			};
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+				computed: {
+					sum: function(){ 
+						return Number(this.x)+Number(this.y);
+					}
+				},
+				methods: {
+					print: function(){
+						console.log(this.x);
+					} 
+				},
+				 
+			});
+		</script>
+	</body>
+</html>
