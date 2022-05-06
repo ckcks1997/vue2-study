@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+		<style>
+			.set1 { background-color: aqua; color:purple; }
+			.set2 { text-align:center; width:120px; }
+			.set3 { border:sandybrown dashed 1px; }
+		  </style>
+		
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="simple" >
+			 <button id="btn1" v-bind:class="mystyle">111
+				 <p>
+					 <input type="checkbox" v-model="mystyle.set1" value="true"> 111
+					 <input type="checkbox" v-model="mystyle.set2" value="true"> 2
+					 <input type="checkbox" v-model="mystyle.set3" value="true"> 3
+				 </p>
+			 </button>
+		</div>
+		 
+		<script>
+			var model={
+				mystyle:{
+					set1:false, set2:false, set3:true
+				}
+			}; 
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+			 
+				 
+			});
+ 
+		</script>
+	</body>
+</html>

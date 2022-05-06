@@ -28,9 +28,10 @@
 		<!-- v-bind 생략 -->
 		<div id="simple">
 			<p>
-				국가명: <input type="text" placeholder="국가명" @input="nameChanged" />
+				국가명: <input type="text" :value="countryname" placeholder="국가명" @input="nameChanged" />
 			</p>
 
+			
 			<table id="list">
 				<thead>
 					<tr>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="simple">
+			<button id="a" v-bind:style="style1" @mouseover.stop="overEvent" @mouseout.stop="outEvent">
+				테스트
+			</button>
+		</div>
+
+		<script>
+			var model = {
+				style1: { backgroundColor: "aqua" },
+			};
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+				methods: {
+					overEvent: function () {
+						this.style1.backgroundColor = "purple";
+					},
+					outEvent: function () {
+						this.style1.backgroundColor = "aqua";
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

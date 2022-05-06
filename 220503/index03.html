@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="simple">
+				<p><input type="text" v-model="amount" class="form-control"></p>
+				<p><button id="deposit" @click.once="specialEvent" class="">만원 한번만 넣기</button>
+				<button id="deposit" @click="deposit" class="">예금</button>
+					<button id="deposit" v-on:click="withdraw" class="">인출</button></p>
+
+					계좌잔고:{{balance}}
+		</div>
+
+		<script>
+			var model={
+				amount:0,
+				balance:0
+			};
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+				methods: {
+					specialEvent: function(){
+						this.balance += 10000
+					},
+
+					deposit: function(){
+						var amt = parseInt(this.amount);
+						if(amt <=0){
+							alert("0보다 큰값을 입력하세요")
+						} else{
+							this.balance += amt;
+						}
+					},
+					withdraw: function(){
+						var amt = parseInt(this.amount);
+						if(amt <=0){
+							alert("0보다 큰값을 입력하세요")
+						}else if(amt > this.balance){
+							alert("잔고부족")
+						} 
+						else{
+							this.balance -= amt;
+						}
+					} 
+				}
+				 
+			});
+		</script>
+	</body>
+</html>

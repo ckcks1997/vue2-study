@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+<!-- rest json방식 가져오기 -->
+		<title>Document</title>
+		<style>
+			#list {
+				width: 400px;
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			#list td,
+			#list th {
+				border: 1px solid black;
+				text-align: center;
+			}
+			#list > thead > tr {
+				color: yellow;
+				background-color: purple;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="simple">
+			<p>  <!-- v-on == @ -->
+				이름: <input type="text" v-model="name" @keyup="search" placeholder="두글자 이상">
+			</p>
+			<table id="list">
+				<thead>
+					
+					<tr>
+						<th>번호</th>
+						<th>이름</th>
+						<th>전화번호</th>
+						<th>주소</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="contact in contactlist">
+						<td>{{contact.no}}</td>
+						<td>{{contact.name}}</td>
+						<td>{{contact.tel}}</td>
+						<td>{{contact.addr}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div v-show="isProcessing === true"> 조회중</div>
+		</div>
+
+		<script>
+			var model={
+				name: "",
+				contactlist:[],
+				isProcessing:false
+			};
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+				methods: {
+					search: function(e){
+						if(e.keyCode === 13){
+							var val = e.target.value;
+							if(val.length >=2){
+								this.fetchContacts();
+							}else{
+								this.contactlist=[];
+							}
+						}
+					},
+					fetchContacts : function(){
+						
+						this.contactlist=[];
+						this.isProcessing=true;
+						var url = "http://sample.bmaster.kro.kr/contacts_long";
+						var vm = this; //전체 model을 의미, 클로저 함수 내에서는 this가 가르키는게 달라지기 때문..
+						let name = this.name;
+						fetch(url)
+						.then(function(response){
+							return response.json();
+						}).then(function(json){
+							vm.contactlist = json.contacts.filter(c => c.name.toUpperCase().includes(name.toUpperCase()));
+							vm.isProcessing = false;
+
+						}).catch(function(ex){
+							console.log('parsing failed', ex);
+							vm.contactlist = [];
+							vm.isProcessing = false;
+						})
+
+					}
+				}
+				 
+			});
+		</script>
+	</body>
+</html>

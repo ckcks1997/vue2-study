@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>hello vue.js</title>
+        <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+      </head>
+</html>
+<body>
+
+<template id="listTemplate">
+  <li>{{message}}</li>
+</template>
+
+<div id="simple">
+  <ul>
+    <list-component message="Hello" v-bind:count="100"></list-component>
+    <list-component message="신짜오" v-bind:count="21"></list-component>
+    <list-component message="신짜오2"></list-component>
+    <list-component v-bind:count="21"></list-component>
+  </ul>
+</div>
+  
+  <script>
+    Vue.component('list-component', {
+      template: '#listTemplate',
+      props: {
+        message: {type: String, default: 'hello'},
+        count: {type: Number, required:true}
+      }
+    })
+  </script>
+ 
+<script >
+var model={
+
+};
+var simple = new Vue({
+  el: '#simple',
+  data: model
+})
+
+</script>
+</body>

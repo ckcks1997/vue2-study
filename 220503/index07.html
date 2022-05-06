@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+ 
+		<title>Document</title>
+		 
+	</head>
+	<body>
+		<div id="simple" v-on:contextmenu="ctxStop" @mouseup.left="leftMouse" @mouseup.right="rightMouse">
+			<div>
+				left click: 왼쪽으로
+				<br>right click: 오른쪽으로
+			</div>
+			<img src="../images/foot.jpg" v-bind:style="{position:'absolute', left: pos.left+'px', top: pos.top+'px'}"/>
+		</div>
+
+		<script>
+			document.oncontextmenu = function(){return false}; //우클릭 방지
+
+			var model={
+			 pos:{left:100, top:100}
+			};
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+				methods: {
+					ctxStop: function(){},
+					leftMouse: function(){
+						if(this.pos.left > 30)
+						this.pos.left-=10
+					},
+					rightMouse: function(){
+						this.pos.left+=10
+					},
+					
+				}
+				 
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+		<style>
+			.score { border:solid 1px black; }
+			.warning { background-color: orange; color:purple; }
+			.warnimage { width:18px; height:18px; top:5px; position:relative;   }
+		  </style>
+		
+		
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="simple" >
+			 <p>1~100입력</p>
+			 <div>
+				 <input type="text" class="score" v-model.number="score" v-bind:class="info"/>
+				 <img src="../images/foot.jpg" class="warnimage" v-show="info.warning">
+			 </div>
+		</div>
+		 
+		<script>
+			var model={
+				score:0
+			}; 
+			var simple = new Vue({
+				el: "#simple",
+				data: model,
+				computed: {
+					info: function(){
+						if(this.score >=1 && this.score<=100)
+							return {warning:false}
+						else return {warning:true}
+					}
+				}
+				 
+			});
+ 
+		</script>
+	</body>
+</html>

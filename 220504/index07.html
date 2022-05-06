@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+		 <link rel="stylesheet" href="../images/style.css">
+		
+		
+		
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="todolistapp" >
+			  <div class="header" id="header">
+				<h2>todo list</h2>
+				<input type="text" class="input" id="task" placeholder="inin" v-model.trim="todo" v-on:keyup.enter="addTodo">
+				<span class="addbutton" v-on:click="addTodo">add</span>
+			  </div>
+			  <ul id="todolist">
+				  <li v-for="a in todolist" v-bind:class="checked(a.done)" v-on:click="doneToggle(a.id)">
+					<span>{{a.todo}}</span>
+					<span v-if="a.done">(완료)</span>
+					<span class="close" v-on:click.stop="deleteTodo(a.id)">&#x00D7;</span>
+				  </li>
+			</ul>
+
+		</div>
+		 
+		<script>
+ 
+			var model={
+				todo:"",
+				todolist: [
+					{id:1, todo:"영화보기", done:false},
+					{id:2, todo:"산책하기", done:true},
+					{id:3, todo:"ES6 학습", done:false},
+					{id:4, todo:"무언가 학습", done:false}
+				]
+			}; 
+			var simple = new Vue({
+				el: "#todolistapp",
+				data: model,
+				methods: {
+					checked: function(done){
+						if(done) return {checked: true}
+						else return {checked: false}
+					},
+					addTodo: function(e){
+						if(this.todo.trim()!==""){
+							this.todolist.push({id:new Date().getTime(), todo:this.todo.trim(), done:false});
+							this.todo="";
+						}
+					},
+					deleteTodo: function(id){
+						var index = this.todolist.findIndex(function(item){
+							return item.id ===id;
+						})
+						this.todolist.splice(index,1);
+
+					},
+					doneToggle: function(id){
+						var index = this.todolist.findIndex(function(item){
+							return item.id === id;
+						})
+						this.todolist[index].done = !this.todolist[index].done;
+					}
+				}
+			});
+ 
+		</script>
+	</body>
+</html>
